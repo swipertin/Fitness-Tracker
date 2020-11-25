@@ -1,17 +1,103 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
+import {
+  BrowserRouter as Router,
+  Link,
+  Route,
+  Switch,
+  useParams,
+} from "react-router-dom";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+// NOTE!! Install React Router (terminal --> npm install react-router-dom) if you haven't already.
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+import { getToken, clearToken, hitAPI } from "./api";
+
+import { Main, Title } from "./components"
+import "./styles.css";
+
+const App = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  
+
+  // useEffect(() => {
+  //   hitAPI("GET", "/posts")
+  //     .then((data) => {
+  //       const { posts } = data;
+  //       // console.log(posts);
+        
+  //     })
+  //     .catch(console.error);
+  // }, []);
+
+  // function filteredPosts() {
+  //   return postList.filter((post) => {
+  //     return (
+  //       post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //       post.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //       post.price.toLowerCase().includes(searchTerm.toLowerCase())
+  //     );
+  //   });
+  // }
+
+  // return (
+  //   <Router>
+  //     <div className="app">
+  //       <header className="nav"> 
+  //         {/* <Title /> */}
+  //         {/* {isLoggedIn ? (
+  //           <>
+  //             <NavButtons />
+  //             <button
+  //               className="logOut"
+  //               onClick={() => {
+  //                 clearToken();
+  //                 setIsLoggedIn(false);
+  //               }}
+  //             >
+  //               LOG OUT
+  //             </button>
+  //           </>
+  //         ) : (
+  //           <Auth setIsLoggedIn={setIsLoggedIn} />
+  //         )}
+  //       </header>
+
+  //       <div className="search">
+  //         <input
+  //           type="text"
+  //           value={searchTerm}
+  //           onChange={(event) => setSearchTerm(event.target.value)}
+  //           placeholder="Search by Title, Location or Price"
+  //         />
+  //       </div>
+
+  //       <main className="main">
+
+  //         {/* <section className="sideBar"> */}
+  //           {/* <Route exact path="/home"> */}
+  //             {/* <NewPost */}
+  //               {/* // isLoggedIn={isLoggedIn} */}
+  //               {/* // postList={postList} */}
+  //               {/* // setPostList={setPostList} */}
+  //             {/* /> */}
+  //           {/* </Route> */}
+  //           {/* <Route exact path="/workout"> */}
+  //             {/* {isLoggedIn ? <NewMessage post={activePost} /> : null} */}
+  //           {/* </Route> */}
+  //           {/* <Route exact path="/messages">
+  //             <MessageList messageList={messageList} />
+  //           </Route> */}
+  //         {/* </section> */}
+  //       {/* </main> */}
+  //     </div>
+  //   </Router>
+  // );
+  return (
+    <Router>
+    <Title />
+    <Main />
+    </Router>
+  )
+};
+
+ReactDOM.render(<App />, document.getElementById("app"));
