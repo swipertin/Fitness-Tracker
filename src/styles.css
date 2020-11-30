@@ -17,3 +17,7 @@ code {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   padding-left: 20px;
 }
+
+.loginForm {
+  max-width: 200px;
+}
