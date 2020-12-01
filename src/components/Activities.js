@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { hitAPI } from "../api";
-import { Card, ListGroup } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import data from "./Mockdata/ActivitiesData";
 
 const Activities = (props) => {
