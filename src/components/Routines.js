@@ -1,21 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, ListGroup } from "react-bootstrap";
 import Title from "./Title";
-import { hitAPI, auth } from "../api";
-import data from "./Mockdata/RoutinesData.js";
+import { RoutinesList } from "../api";
+
 
 
 
 
 const Routines = (props) => {
-  const [isPublic, setIsPublic] = useState(true);
+  
   const [name, setName] = useState("");
   const [goal, setGoal] = useState("");
-  const [routine, setRoutine] = useState([]);
+  const [routines, setRoutines] = useState([]);
+
+  useEffect(() => {
+    RoutinesList
+       .then((data) => {
+       
+         setRoutines(data);
+       })
+       .catch(console.error);
+   }, []);
 
   return (
   <div>
-      {data.map((routine, idx)=> {
+      {routines.map((routine, idx)=> {
 return (
     
 <Card key={idx} style={{ width: '18rem',

@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-// NOTE!! Install React Router (terminal --> npm install react-router-dom) if you haven't already.
+
 
 import { getToken, clearToken, hitAPI } from "./api";
 
@@ -19,7 +19,7 @@ import "./styles.css";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!getToken());
-
+const [user, setUser] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
   return (
@@ -57,21 +57,21 @@ const App = () => {
           </Navbar>
         </>
       ) : (
-        <Login setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />
+        <Login setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} setUser={setUser}/>
       )}
-      {/* <Main setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn}/> */}
+      
       <Switch>
         <Route path="/routines">
-          <Routines />
+          <Routines user={user}/>
         </Route>
         <Route path="/activities">
-          <Activities />
+          <Activities user={user}/>
         </Route>
         <Route path="/my-routines">
-          <MyRoutines />
+          <MyRoutines user={user}/>
         </Route>
         <Route path="/my-activities">
-          <MyActivities />
+          <MyActivities user={user}/>
         </Route>
       </Switch>
     </Router>
