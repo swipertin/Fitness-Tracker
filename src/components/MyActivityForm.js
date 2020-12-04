@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { hitAPI } from "../api";
 
-const MyActivities = (props) => {
+const MyActivity = (props) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
@@ -59,8 +59,9 @@ const MyActivities = (props) => {
       >
         Submit
       </Button>
+      
     </div>
   );
 };
 
-export default MyActivities;
+export default MyActivity;

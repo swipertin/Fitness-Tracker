@@ -82,6 +82,7 @@ export const RoutinesList = fetch(
 )
   .then((response) => response.json())
   .then((result) => {
+      console.log(result,"in API")
     return result;
   })
   .catch(console.error);
@@ -90,6 +91,33 @@ export const getUserRoutinesList = (user) => {
   const url = BASE_URL`/user/:${user}/routines`;
   return hitAPI("GET", url);
 };
+
+export const routineForm = fetch('http://fitnesstrac-kr.herokuapp.com/api/routines', {
+    method: "POST",
+    body: JSON.stringify({
+      name: '',
+      goal: '',
+      isPublic: true
+    })
+  }).then(response => response.json())
+    .then(result => {
+        console.log(result);
+        return result;
+    })
+    .catch(console.error);
+
+  export const editRoutine = fetch('http://fitnesstrac-kr.herokuapp.com/api/routines/6', {
+        method: "PATCH",
+        body: JSON.stringify({
+          name: '',
+          goal: ''
+        })
+      }).then(response => response.json())
+        .then(result => {
+          console.log(result);
+        })
+        .catch(console.error);
+      
 
 export const ActivitiesList = fetch(
   "http://fitnesstrac-kr.herokuapp.com/api/activities",
@@ -105,7 +133,7 @@ export const ActivitiesList = fetch(
   })
   .catch(console.error);
 
-export const activitiesForm = fetch(
+export const activityForm = fetch(
   "http://fitnesstrac-kr.herokuapp.com/api/activities",
   {
     method: "POST",
@@ -121,7 +149,19 @@ export const activitiesForm = fetch(
   })
   .catch(console.error);
 
-export const newActivitiesForm = () => {
+export const newActivityForm = () => {
   const url = BASE_URL`/activities`;
   return hitAPI("POST", url);
 };
+
+export const editActivity = fetch('http://fitnesstrac-kr.herokuapp.com/api/activities/9', {
+    method: "PATCH",
+    body: JSON.stringify({
+      name: '',
+      description: ''
+    })
+  }).then(response => response.json())
+    .then(result => {
+      console.log(result);
+    })
+    .catch(console.error);

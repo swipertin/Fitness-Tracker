@@ -12,7 +12,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 
 
-import { getToken, clearToken, hitAPI } from "./api";
+import { getToken, clearToken, hitAPI, RoutinesList } from "./api";
 
 import { Activities, Login, Title, Routines, MyRoutines, MyActivities } from "./components";
 import "./styles.css";
@@ -21,6 +21,16 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!getToken());
 const [user, setUser] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [routines, setRoutines] = useState([]);
+
+
+  useEffect(() => {
+    RoutinesList
+       .then((data) => {
+         setRoutines(data);
+       })
+       .catch(console.error);
+   }, [routines]);
 
   return (
     <Router>
@@ -62,13 +72,13 @@ const [user, setUser] = useState("");
       
       <Switch>
         <Route path="/routines">
-          <Routines user={user}/>
+          <Routines user={user} routines={routines}/>
         </Route>
         <Route path="/activities">
           <Activities user={user}/>
         </Route>
         <Route path="/my-routines">
-          <MyRoutines user={user}/>
+          <MyRoutines user={user} setRoutines={setRoutines} routines={routines}/>
         </Route>
         <Route path="/my-activities">
           <MyActivities user={user}/>
