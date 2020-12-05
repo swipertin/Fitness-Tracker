@@ -1,22 +1,23 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { MyActivityForm } from ".";
 import { hitAPI } from "../api";
 
 const MyActivity = (props) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
 
-  const { activity, setActivity } = props;
+  const { activity, setActivities } = props;
 
   const handleSubmit = (event) => {
     const newActivity = {
       name,
       description,
     };
-    console.log(newActivity);
+    
     hitAPI("POST", "/activities", newActivity)
       .then((response) => {
-        const newActivity = response;
+        setActivities(response);
         setName("");
         setDescription("");
       })

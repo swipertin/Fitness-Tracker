@@ -14,7 +14,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import { getToken, clearToken, hitAPI, RoutinesList } from "./api";
 
-import { Activities, Login, Title, Routines, MyRoutines, MyActivities } from "./components";
+import { Activities, Login, Title, Routines, MyRoutineForm, MyActivityForm } from "./components";
 import "./styles.css";
 
 const App = () => {
@@ -22,6 +22,7 @@ const App = () => {
 const [user, setUser] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [routines, setRoutines] = useState([]);
+  const [activities, setActivities] = useState([]);
 
 
   useEffect(() => {
@@ -72,16 +73,16 @@ const [user, setUser] = useState("");
       
       <Switch>
         <Route path="/routines">
-          <Routines user={user} routines={routines}/>
+          <Routines user={user} routines={routines} setRoutines={setRoutines}/>
         </Route>
         <Route path="/activities">
-          <Activities user={user}/>
+          <Activities user={user} activities={activities} setActivities={setActivities} />
         </Route>
         <Route path="/my-routines">
-          <MyRoutines user={user} setRoutines={setRoutines} routines={routines}/>
+          <MyRoutineForm user={user} setRoutines={setRoutines} routines={routines}/>
         </Route>
         <Route path="/my-activities">
-          <MyActivities user={user}/>
+          <MyActivityForm user={user} />
         </Route>
       </Switch>
     </Router>

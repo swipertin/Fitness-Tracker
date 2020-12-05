@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, ListGroup } from "react-bootstrap";
+import { Card, ListGroup, Button } from "react-bootstrap";
 import { hitAPI, editRoutine } from "../api";
 import Title from "./Title";
 
@@ -7,23 +7,35 @@ const Routines = (props) => {
   const [name, setName] = useState("");
   const [goal, setGoal] = useState("");
 
-  const { routines } = props;
-
+  const { routines, setRoutines } = props;
+  console.log(routines);
   const [routineEdit, setRoutineEdit] = useState(null);
-const updateRoutine = (oldRoutine, newRoutine) => {
-  const index = routine.indexOf(oldRoutine);
-  routine[index] = newRoutine;
-  routineEdit([...routine]);
-  setRoutineEdit(null);
-}
 
-const removeRoutine = (id) => {
-  hitAPI(`http://fitnesstrac-kr.herokuapp.com/api/routines/${id}`, "DELETE")
-  .then(() => {
+  const updateRoutine = (oldRoutine, newRoutine) => {
+    const index = routines.indexOf(oldRoutine);
+    routines[index] = newRoutine;
+    routineEdit([...routines]);
+    setRoutineEdit(null);
+  };
 
-  })
-  .catch(console.error);
-}
+  const deleteRoutine = (deletedId) => {
+    console.log(deletedId);
+    hitAPI("DELETE", `/routines/${deletedId}`)
+      .then((response) => {
+        console.log(response);
+
+        const filteredRoutine = routines.filter((element) => {
+          if (element.id === deletedId) {
+            return false;
+          } else {
+            return true;
+          }
+        });
+        console.log(filteredRoutine);
+        setRoutines(filteredRoutine);
+      })
+      .catch(console.error);
+  };
   const handleEdit = (id) => {
     const editRoutine = {
       name,
@@ -45,6 +57,16 @@ const removeRoutine = (id) => {
         return (
           <Card key={idx} style={{ width: "18rem", margin: "15px" }}>
             <Card.Header>{routine.name}</Card.Header>
+            <Button
+              type="submit"
+              variant="outline-primary"
+              size="sm"
+              onClick={(event) => {
+                deleteRoutine(routine.id);
+              }}
+            >
+              Delete
+            </Button>
             <Card.Body>
               <Card.Subtitle className="mb-2 text-muted">
                 Created by: {routine.creatorName}
@@ -68,6 +90,16 @@ const removeRoutine = (id) => {
                             <span>Description: {activity.description}</span>
                           </div>
                         </ListGroup.Item>
+                        <Button
+                          type="submit"
+                          variant="outline-primary"
+                          size="sm"
+                          onClick={(event) => {
+                            handleEdit(event.target.value);
+                          }}
+                        >
+                          Edit
+                        </Button>
                       </ListGroup>
                     );
                   })

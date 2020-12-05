@@ -6,27 +6,25 @@ import { hitAPI } from "../api";
 const MyRoutine = (props) => {
   const [name, setName] = useState("");
   const [goal, setGoal] = useState("");
-const { routines, setRoutines } = props;
+  const [isPublic, setIsPublic] = useState(true);
+  const { routines, setRoutines } = props;
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const newRoutine = {
       name,
       goal,
+      isPublic,
     };
-    console.log("clicked");
-
+    console.log(newRoutine);
     hitAPI("POST", "/routines", newRoutine)
       .then((response) => {
-        console.log(response);
-        const routineCopy = routines.slice();
-        routineCopy.push(response);
-        console.log(routineCopy, "TEST")
-        setRoutines(routineCopy);
+        console.log(response, "in Post in MyRoutine");
+        setRoutines(response);
 
         setName("");
         setGoal("");
-        console.log(routines)
+        setIsPublic(true);
       })
       .catch(console.error);
   };
@@ -34,7 +32,7 @@ const { routines, setRoutines } = props;
   return (
     <div>
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formGroupEmail">
+        <Form.Group controlId="formRoutine">
           <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"
@@ -55,6 +53,18 @@ const { routines, setRoutines } = props;
               setGoal(event.target.value);
             }}
           />
+        </Form.Group>
+        <Form.Group controlId="formGroupPassword">
+          <Form.Label>Is Public:</Form.Label>
+          <Form inline>
+            <Form.Control
+              as="select"
+              custom
+            >
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </Form.Control>
+          </Form>
         </Form.Group>
       </Form>
       <Button

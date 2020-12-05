@@ -82,7 +82,6 @@ export const RoutinesList = fetch(
 )
   .then((response) => response.json())
   .then((result) => {
-      console.log(result,"in API")
     return result;
   })
   .catch(console.error);
@@ -101,7 +100,6 @@ export const routineForm = fetch('http://fitnesstrac-kr.herokuapp.com/api/routin
     })
   }).then(response => response.json())
     .then(result => {
-        console.log(result);
         return result;
     })
     .catch(console.error);
@@ -113,9 +111,6 @@ export const routineForm = fetch('http://fitnesstrac-kr.herokuapp.com/api/routin
           goal: ''
         })
       }).then(response => response.json())
-        .then(result => {
-          console.log(result);
-        })
         .catch(console.error);
       
 
@@ -161,7 +156,4 @@ export const editActivity = fetch('http://fitnesstrac-kr.herokuapp.com/api/activ
       description: ''
     })
   }).then(response => response.json())
-    .then(result => {
-      console.log(result);
-    })
     .catch(console.error);

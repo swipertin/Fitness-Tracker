@@ -4,7 +4,7 @@ import { Card, Button } from "react-bootstrap";
 
 
 const Activities = (props) => {
-  const [activities, setActivities] = useState([]);
+  const {activities, setActivities} = props;
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   // const [  ] = useState("");
