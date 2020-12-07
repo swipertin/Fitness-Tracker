@@ -73,16 +73,16 @@ const [user, setUser] = useState("");
       
       <Switch>
         <Route path="/routines">
-          <Routines user={user} routines={routines} setRoutines={setRoutines}/>
+          <Routines user={user} routines={routines} setRoutines={setRoutines} />
         </Route>
         <Route path="/activities">
           <Activities user={user} activities={activities} setActivities={setActivities} />
         </Route>
         <Route path="/my-routines">
-          <MyRoutineForm user={user} setRoutines={setRoutines} routines={routines}/>
+          <MyRoutineForm user={user} setRoutines={setRoutines} routines={routines} activities={activities}/>
         </Route>
         <Route path="/my-activities">
-          <MyActivityForm user={user} />
+          <MyActivityForm user={user} activities={activities} setActivities={setActivities}/>
         </Route>
       </Switch>
     </Router>

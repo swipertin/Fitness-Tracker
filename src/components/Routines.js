@@ -6,8 +6,9 @@ import Title from "./Title";
 const Routines = (props) => {
   const [name, setName] = useState("");
   const [goal, setGoal] = useState("");
+  const [isEdited, setIsEdited] = useState(false);
 
-  const { routines, setRoutines } = props;
+  const { routines, setRoutines, user } = props;
   console.log(routines);
   const [routineEdit, setRoutineEdit] = useState(null);
 
@@ -16,6 +17,18 @@ const Routines = (props) => {
     routines[index] = newRoutine;
     routineEdit([...routines]);
     setRoutineEdit(null);
+
+    hitAPI(`api/routine_activities/:routineActivityId `,  {
+      method: "PATCH",
+      body: JSON.stringify({
+        count: '',
+        duration: ''
+      })
+    }).then(response => response.json())
+      .then(result => {
+        console.log(result);
+      })
+      .catch(console.error);
   };
 
   const deleteRoutine = (deletedId) => {
@@ -57,7 +70,7 @@ const Routines = (props) => {
         return (
           <Card key={idx} style={{ width: "18rem", margin: "15px" }}>
             <Card.Header>{routine.name}</Card.Header>
-            <Button
+          { user === routine.creatorName ? <Button        
               type="submit"
               variant="outline-primary"
               size="sm"
@@ -66,7 +79,7 @@ const Routines = (props) => {
               }}
             >
               Delete
-            </Button>
+            </Button> : null}
             <Card.Body>
               <Card.Subtitle className="mb-2 text-muted">
                 Created by: {routine.creatorName}
@@ -85,21 +98,26 @@ const Routines = (props) => {
                               <span>Name: {activity.name}</span>
                             </strong>{" "}
                             <br />
-                            <span>Duration: {activity.duration}</span> <br />
                             <span>Count: {activity.count}</span> <br />
+                            <span>Duration: {activity.duration}</span> <br />
                             <span>Description: {activity.description}</span>
                           </div>
                         </ListGroup.Item>
-                        <Button
+                        { user === routine.creatorName ? <Button
                           type="submit"
                           variant="outline-primary"
                           size="sm"
                           onClick={(event) => {
                             handleEdit(event.target.value);
+                            <ListGroup.Item>
+                              <span>Count: {activity.count}</span>
+                              <span>Count: {activity.duration}</span>
+                            </ListGroup.Item>
                           }}
+                          
                         >
                           Edit
-                        </Button>
+                        </Button> : null}
                       </ListGroup>
                     );
                   })

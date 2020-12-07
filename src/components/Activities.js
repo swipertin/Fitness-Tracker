@@ -9,7 +9,7 @@ const Activities = (props) => {
   const [description, setDescription] = useState("");
   // const [  ] = useState("");
   // const [  ] = useState("");
-
+console.log(activities)
   useEffect(() => {
     ActivitiesList.then((data) => {
       setActivities(data);
